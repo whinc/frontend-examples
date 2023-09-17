@@ -1,0 +1,13 @@
+{
+    "type": "commonjs",
+    "scripts": {
+        "start": "webpack-cli && node ./dist/main.js",
+        "build": "webpack-cli"
+    },
+    "devDependencies": {
+        "html-webpack-plugin": "^5.5.3",
+        "raw-loader": "^4.0.2",
+        "webpack": "^5.88.2",
+        "webpack-cli": "^5.1.4"
+    }
+}

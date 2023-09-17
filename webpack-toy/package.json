@@ -1,0 +1,20 @@
+{
+  "name": "webpack-toy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node bundler.js",
+    "start": "node bundler.js && node ./dist.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.22.20",
+    "@babel/parser": "^7.22.16",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.15",
+    "@babel/traverse": "^7.22.20",
+    "prettier": "^3.0.3"
+  }
+}
