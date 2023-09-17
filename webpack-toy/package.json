@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node bundler.js",
+    "debug": "node --inspect-brk bundler.js",
     "start": "node bundler.js && node ./dist.js"
   },
   "keywords": [],

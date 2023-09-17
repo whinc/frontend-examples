@@ -1,8 +1,14 @@
-const child_process = require("child_process");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MyCleanPlugin = require("./my-clean-plugin");
+const FileListPlugin = require("./file-list-plugin");
+const path = require("path");
+const VuePlugin = require("./vue-plugin");
+
 /** @type {import("webpack").Configuration} */
 module.exports = {
   mode: "development",
+  devtool: false,
   // 指定多个入口文件
   entry: {
     index: "./src/index.js",
@@ -16,9 +22,27 @@ module.exports = {
     // publicPath: "https://cdn.example.com/static/[hash]",
   },
   module: {
-    rules: [{ test: /\.txt$/, use: "raw-loader" }],
+    // rules: [{ test: /\.txt$/, use: "raw-loader" }],
+    rules: [
+      {
+        test: /\.txt$/,
+        use: {
+          loader: path.join(__dirname, "my-raw-loader.js"),
+          options: {
+            name: "whincwu",
+          },
+        },
+      },
+      {
+        test: /\.vue$/,
+        use: {
+          loader: path.join(__dirname, "vue-loader.js"),
+        },
+      },
+    ],
   },
   plugins: [
+    new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       // 指定入口文件对应输出文件的名称
@@ -27,14 +51,8 @@ module.exports = {
       // filename: (entryName) => `${entryName}.html`,
     }),
     // 自定义插件：在编译之前删除dist文件夹
-
-    {
-      apply(/** @type {import("webpack").Compiler} */ compiler) {
-        compiler.hooks.beforeRun.tap("beforeRun", () => {
-          console.log("beforeRun");
-          child_process.execSync("rm -rf ./dist");
-        });
-      },
-    },
+    new MyCleanPlugin({ dir: "./dist" }),
+    new FileListPlugin({ outputFile: "assets.md" }),
+    new VuePlugin(),
   ],
 };
