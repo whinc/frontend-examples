@@ -8,11 +8,19 @@ const prettier = require("prettier");
 // 全局的模块 ID，每个模块的唯一标识
 let ID = 0;
 
-function createAsset(filename) {
+function createAsset(filename, { loaders }) {
   const id = ID++;
 
-  const code = fs.readFileSync(filename, "utf-8");
-  const ast = parse(code, {
+  let source = fs.readFileSync(filename, "utf-8");
+
+  // 遍历加载器，从右往左依次执行
+  for (let i = loaders.length - 1; i >= 0; i--) {
+    const { test, loader, options } = loaders[i];
+    if (!test.test(filename)) continue;
+    source = loader(source, options);
+  }
+
+  const ast = parse(source, {
     sourceType: "module",
   });
 
@@ -42,8 +50,8 @@ function createAsset(filename) {
   };
 }
 
-function createGraph(filename) {
-  const module = createAsset(filename);
+function createGraph(filename, config) {
+  const module = createAsset(filename, config);
 
   const graph = [];
 
@@ -53,6 +61,7 @@ function createGraph(filename) {
     m.dependencies.forEach((depFilename) => {
       const depModule = createAsset(
         path.join(path.dirname(module.filename), depFilename),
+        config,
       );
       m.mapping[depFilename] = depModule.id;
       queue.push(depModule);
@@ -93,7 +102,29 @@ function generateCode(graph) {
   return code;
 }
 
-const graph = createGraph("./src/index.js");
+// 加载文本文件，并替换其中的变量
+const rawLoader = function (source, options) {
+  let output = source;
+  Object.keys(options).forEach((name) => {
+    output = output.replace(`[${name}]`, options[name]);
+  });
+  return `export default ${JSON.stringify(output)}`;
+};
+
+const config = {
+  loaders: [
+    {
+      test: /\.txt$/,
+      loader: rawLoader,
+      options: {
+        name: "whincwu",
+      },
+    },
+  ],
+};
+
+const graph = createGraph("./src/index.js", config);
+
 const code = generateCode(graph);
 prettier.format(code, { parser: "babel" }).then((formattedCode) => {
   fs.writeFileSync("dist.js", formattedCode, "utf-8");
