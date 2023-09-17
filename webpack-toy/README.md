@@ -15,3 +15,8 @@
 pnpm install
 pnpm start
 ```
+
+目录结构
+- `src` 输入的 es 模块代码
+- `bundler.js` 极简的 webpack 打包器
+- `dist.js` 输出的 cjs 打包代码
