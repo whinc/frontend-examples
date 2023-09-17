@@ -10,7 +10,7 @@ module.exports = {
       env: {
         node: true,
       },
-      files: [".eslintrc.{js,cjs}", "webpack-toy/*.js"],
+      files: [".eslintrc.{js,cjs}", "webpack-toy/*.js", "**/webpack.config.js"],
       parserOptions: {
         sourceType: "script",
       },

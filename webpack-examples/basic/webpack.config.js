@@ -12,6 +12,8 @@ module.exports = {
   output: {
     filename: "[name].js",
     path: __dirname + "/dist",
+    // 影响生成的 html 文件中 <script src="${publicPath}${filename}"> 标签
+    // publicPath: "https://cdn.example.com/static/[hash]",
   },
   module: {
     rules: [{ test: /\.txt$/, use: "raw-loader" }],

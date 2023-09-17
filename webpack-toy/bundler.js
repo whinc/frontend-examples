@@ -95,8 +95,6 @@ function generateCode(graph) {
 
 const graph = createGraph("./src/index.js");
 const code = generateCode(graph);
-prettier
-  .format(code, { tabWidth: 2, parser: "babel" })
-  .then((formattedCode) => {
-    fs.writeFileSync("dist.js", formattedCode, "utf-8");
-  });
+prettier.format(code, { parser: "babel" }).then((formattedCode) => {
+  fs.writeFileSync("dist.js", formattedCode, "utf-8");
+});
