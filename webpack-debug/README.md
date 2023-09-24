@@ -7,12 +7,12 @@
 pnpm run setup
 
 # 启动调试（在 build.js 文件中设置断点)
-pnpm start
+pnpm run start
 ```
 
 ## 插件调试
 
-webpack 内置了很多插件，可以拿来调试学习如何使用。首先在 webpack.config.js 中注册插件，然后在 webpack 插件源码中断点调试。
+webpack 内置了很多插件，可以拿来调试，学习其实现方式。首先在 webpack.config.js 中注册插件，然后在 webpack 插件源码中断点调试。
 
 可以从简单的 BannerPlugin 开始
 
