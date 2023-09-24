@@ -1,0 +1,40 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch via NPM",
+      "request": "launch",
+      "runtimeArgs": [
+        "run",
+        "debug"
+      ],
+      "cwd": "${workspaceFolder}/${input:}",
+      "runtimeExecutable": "pnpm",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "webpack-debug",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/${relativeFileDirname}/build.js",
+      "args": []
+    }
+  ],
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "dirName",
+      "description": "输入项目",
+      "default": "my-new-component"
+    }
+  ]
+}

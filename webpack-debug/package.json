@@ -1,0 +1,15 @@
+{
+  "name": "webpack-debug-source",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "debug": "node ./build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "link:../webpack"
+  }
+}
