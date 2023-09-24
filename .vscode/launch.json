@@ -18,16 +18,30 @@
       ],
       "type": "node"
     },
+    // {
+    //   "type": "node",
+    //   "request": "launch",
+    //   "name": "webpack-debug",
+    //   "skipFiles": [
+    //     "<node_internals>/**"
+    //   ],
+    //   "program": "${workspaceFolder}/webpack-debug/build.js",
+    //   "args": []
+    // }
     {
-      "type": "node",
-      "request": "launch",
       "name": "webpack-debug",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/webpack-debug",
+      "runtimeArgs": [
+        "run-script",
+        "start"
+      ],
+      "runtimeExecutable": "pnpm",
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}/${relativeFileDirname}/build.js",
-      "args": []
-    }
+      "type": "node"
+    },
   ],
   "inputs": [
     {

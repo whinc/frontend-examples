@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "debug": "node ./build.js"
+    "setup": "cd ../webpack && pnpm install; cd -",
+    "start": "node ./build.js"
   },
   "keywords": [],
   "author": "",
